@@ -1,0 +1,97 @@
+/* OVERLAY */
+#modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 1000;
+}
+
+/* MODAL – CENTERED & RESPONSIVE */
+#modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: var(--bg-panel);
+  color: var(--text-main);
+
+  width: min(92vw, 640px);      /* 🔥 passt sich Fenster an */
+  max-height: min(85vh, 720px); /* 🔥 nie größer als Viewport */
+
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+
+  border: 1px dashed var(--border-soft);
+
+  overflow-y: auto;             /* Inhalt scrollt */
+  overscroll-behavior: contain; /* verhindert Body-Scroll */
+
+  z-index: 1001;
+
+  #modal {
+  animation: modalIn 0.15s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+}
+
+@media (max-width: 600px) {
+  #modal {
+    width: calc(100vw - 1.2rem);
+    max-height: calc(100vh - 1.2rem);
+    border-radius: 12px;
+    padding: 0.9rem;
+  }
+}
+#modalTitle {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+#modal.hidden,
+#modalOverlay.hidden {
+  display: none !important;
+}
+
+/* ITEM DETAIL VIEW */
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px dashed var(--border-soft);
+}
+
+.detail-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.detail-value {
+  font-size: 12px;
+  color: var(--text-main);
+}

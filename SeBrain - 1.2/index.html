@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>SeBrain</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/base/layout.css">
+  <link rel="stylesheet" href="css/components/cards.css">
+  <link rel="stylesheet" href="css/components/modal.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0f172a">
+
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <span class="app-title">SeBrain</span>
+    <button id="navCollections">Sammlungen</button>
+  </div>
+
+  <div class="nav-right">
+    <input type="color" id="accentPicker" title="Akzentfarbe" />
+    <button id="exportBtn">Export</button>
+    <button id="importBtn">Import</button>
+    <button id="resetStorageBtn" class="danger">
+  ⚠️ Speicher zurücksetzen
+</button>
+
+<input
+  type="file"
+  id="importInput"
+  accept="application/json"
+  style="display: none;"
+/>
+
+    <button id="navSettings">🌙</button>
+  </div>
+</header>
+
+
+
+<!-- COLLECTIONS VIEW -->
+<section id="collectionsView">
+  <h2>Sammlungen</h2>
+  <button id="newCollectionBtn">➕ Neue Sammlung</button>
+  <div id="collections"></div>
+</section>
+
+<!-- ITEMS VIEW -->
+<section id="itemsView" class="hidden">
+  <div class="items-header">
+    <button id="backToCollections">← Zurück</button>
+    <button id="newItemBtn">➕ Neues Item</button>
+  </div>
+  <div id="items"></div>
+</section>
+
+
+<!-- MODAL -->
+<div id="modalOverlay" class="hidden"></div>
+<div id="modal" class="hidden">
+  <h2 id="modalTitle"></h2>
+  <div id="modalContent"></div>
+  <div class="modal-actions">
+    <button id="modalSave" class="hidden">Speichern</button>
+    <button id="modalDelete" class="hidden">Löschen</button>
+    <button id="modalClose">Schließen</button>
+  </div>
+</div>
+
+<!-- Items Liste -->
+<div id="items"></div>
+
+<!-- Detailansicht -->
+<div id="itemDetail"></div>
+
+<!-- DETAIL OVERLAY -->
+<div id="detailOverlay" class="modal-overlay hidden"></div>
+
+<!-- DETAIL MODAL -->
+<div id="detailModal" class="modal hidden">
+  <div class="modal-content detail-modal">
+    <div class="detail-header">
+      <h2 id="detailTitle">Details</h2>
+    </div>
+
+    <div id="detailContent" class="detail-body"></div>
+
+    <div class="modal-actions detail-actions">
+      <button id="detailEditBtn">✏️ Bearbeiten</button>
+      <button id="detailDeleteBtn" class="danger">🗑 Löschen</button>
+      <button id="detailCloseBtn">Schließen</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

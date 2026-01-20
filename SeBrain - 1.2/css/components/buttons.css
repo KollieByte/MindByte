@@ -1,0 +1,68 @@
+/* ===============================
+   BUTTON SYSTEM – NOTHING STYLE
+=============================== */
+
+button {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+/* Hover */
+button:hover {
+  background: var(--panel-soft);
+  transform: translateY(-1px);
+}
+
+/* Active */
+button:active {
+  transform: translateY(0);
+}
+
+/* PRIMARY (z. B. Speichern, Hinzufügen) */
+button.primary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+button.primary:hover {
+  background: rgba(217,255,0,.08);
+}
+
+/* SECONDARY (Standard) */
+button.secondary {
+  opacity: .85;
+}
+
+/* DANGER */
+button.danger {
+  border-color: rgba(255,80,80,.45);
+  color: #ff6b6b;
+}
+
+button.danger:hover {
+  background: rgba(255,80,80,.08);
+}
+
+/* ICON BUTTONS (Navbar, Edit, Delete) */
+button.icon {
+  padding: 6px 10px;
+  font-size: 13px;
+  letter-spacing: 0;
+}
