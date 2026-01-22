@@ -1,0 +1,243 @@
+/* Keyframe animation used to fade tiles in when the page loads. */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Override the original tile grid to use a modern, responsive layout.
+   We set a minimum width for each tile and allow the grid to auto‑fill
+   based on available space. The generous gap and padding create
+   breathing room around the cards. */
+/* Base grid styling: create a responsive grid with spacing.  Specific layouts for
+   different screens are defined by additional classes (.app-grid, .group-grid, .item-grid). */
+.tile-grid {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  margin: 0 auto;
+  list-style: none;
+}
+
+/* Grid for the home (apps) screen.  Cards are wide and fill available space. */
+.app-grid,
+.group-grid {
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-auto-rows: auto;
+  max-width: 1400px;
+}
+
+/* Grid for the collection items screen.  Tiles emulate book spines with narrow columns. */
+/*
+  Grid for the collection items screen.  Tiles are narrow and close together
+  to evoke the feel of books on a shelf.  Gaps and padding are reduced to
+  minimise whitespace between items.
+*/
+.item-grid {
+  grid-template-columns: repeat(auto-fill, minmax(3.3rem, 1fr));
+  grid-auto-rows: auto;
+  max-width: 100%;
+  gap: 0.01rem;
+  padding: 2rem;
+}
+
+/* Tile override styles. These rules replace the default tile styling
+   defined in the base stylesheet. Tiles become larger cards with
+   translucent backgrounds, rounded corners and a frosted‑glass
+   effect. They fade in when rendered and scale up slightly on
+   hover. */
+/* Styles for item tiles (book spine look). */
+/*
+  STYLING FOR INDIVIDUAL ITEM TILES
+
+  Item tiles in a collection are designed to resemble book spines.  They are tall
+  and narrow and contain two "slots" at the top to display the obverse and
+  reverse coin images.  Each slot spans the full width of the spine and has
+  a concave bottom edge created via large border radii.  The remaining
+  vertical space is used for the item title, rotated to read bottom‑to‑top.
+*/
+.item-tile {
+  width: 3rem;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--accent);
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(6px) saturate(160%);
+  -webkit-backdrop-filter: blur(6px) saturate(160%);
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.item-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+/*
+  The media container holds two coin slots stacked vertically.  Each slot is a
+  full‑width bar with a concave bottom edge, created using large border
+  radii.  The slots provide a subtle frame for the coin images without
+  overwhelming the narrow spine.  If no image is present, the slot simply
+  displays the tinted background.
+*/
+.item-tile .tile-media {
+  /*
+    The media area holds the coin images.  It has a tinted background and
+    rounded bottom corners.  We remove any internal flexbox so that the
+    coins can be absolutely positioned and overlap one another.
+  */
+  position: relative;
+  width: 100%;
+  height: 9rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: visible;
+}
+
+.item-tile .coin-slot {
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.15rem;
+}
+
+.item-tile .coin-slot img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/*
+  Coins inside the media area are absolutely positioned and overlap one another.
+  Both images are rotated 270° to align with the vertical orientation of the
+  spine.  The top (reverse) coin sits above the bottom (obverse) coin and
+  partially overlaps it.  The transform first centres the image horizontally
+  and then applies rotation.
+*/
+.item-tile .tile-media img {
+  position: absolute;
+  left: 50%;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  object-fit: cover;
+  transform: translateX(-50%) rotate(270deg);
+}
+
+/* Top coin (reverse) */
+.item-tile .tile-media img.coin-top {
+  bottom: 2rem;
+  z-index: 2;
+}
+
+/* Bottom coin (obverse) */
+.item-tile .tile-media img.coin-bottom {
+  top: 0.02rem;
+  z-index: 1;
+}
+
+/*
+  Title area for the spine.  The writing mode is vertical‑right‑to‑left so
+  that text is read from bottom to top when the spine stands upright.  A
+  slight rotation flips the glyphs so they appear right side up.  Padding
+  provides breathing room around the text.
+*/
+.item-tile .tile-title {
+  /*
+    Reserve a fixed area at the bottom of the spine for the title.  The
+    vertical writing mode rotates text from bottom to top.  A subtle top
+    border and gradient create a visual separation from the coin area.
+  */
+  flex: 0 0 auto;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+}
+
+/* Styles for app and group tiles (dashboard categories). */
+.app-tile,
+.group-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 14rem;
+  padding: 1rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.15)
+  );
+  border: 1px solid var(--accent);
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(8px) saturate(160%);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.app-tile:hover,
+.group-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Section separators in collections: look like headings rather than tiles. */
+.tile-section {
+  grid-column: 1 / -1;
+  padding: 0.5rem 0;
+  margin: 1rem 0 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
