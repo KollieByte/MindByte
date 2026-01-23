@@ -1,0 +1,8 @@
+/*
+  Empty search stylesheet
+
+  This file exists to satisfy requests from the application.  Previously
+  the app attempted to load `css/core/search.css`, but that file did not
+  exist which caused a `net::ERR_FILE_NOT_FOUND` error in the browser.  If
+  search-specific styles are needed in the future, they can be added here.
+*/
